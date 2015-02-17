@@ -26,7 +26,7 @@ var EditUserDialogController = function ($scope, $modalInstance, $rootScope, $ti
 			if (id)
 				$scope.form.groupToDelete = _.find($scope.form.userGroups, {id: id});
 		});
-	}
+	};
 
 	// Handler for when a list of folios is downloaded. Server is polled.
 	var removeGetFoliosHandler = $rootScope.$on("getFolios", function(e, folios) {
@@ -61,7 +61,7 @@ var EditUserDialogController = function ($scope, $modalInstance, $rootScope, $ti
 			}
 		}
 	});
-	
+
 	// Remove the handler when the scope is destroyed.
 	$scope.$on("$destroy", function() {
 		removeGetFoliosHandler();
@@ -81,7 +81,7 @@ var EditUserDialogController = function ($scope, $modalInstance, $rootScope, $ti
 
 		// Set the default to the first one.
 		$scope.form.folioToAdd = $scope.form.availableFolios[0];
-	}
+	};
 
 	$scope.addGroup_clickHandler = function() {
 		var group = $scope.form.groupToAdd;
@@ -97,8 +97,8 @@ var EditUserDialogController = function ($scope, $modalInstance, $rootScope, $ti
 
 		// Set the default to the first one.
 		$scope.form.groupToAdd = $scope.form.availableGroups[0];
-	}
-	
+	};
+
 	$scope.removeFolio_clickHandler = function(isUserRemoved) {
 		if ($scope.form.folioToDelete) {
 			// Add the folio back to the list of available folios.
@@ -116,14 +116,14 @@ var EditUserDialogController = function ($scope, $modalInstance, $rootScope, $ti
 				if ($scope.form.userFolios.length > 0) {
 					var selectedIndex = Math.max(0, removeIndex - 1);
 					$scope.form.folioToDelete = $scope.form.userFolios[selectedIndex];
-					$scope.$userFoliosSelected.val($scope.form.folioToDelete.productId)
+					$scope.$userFoliosSelected.val($scope.form.folioToDelete.productId);
 				} else {
 					$scope.form.folioToDelete = null;
 				}
 			}
 		}
-	}
-	
+	};
+
 	$scope.removeGroup_clickHandler = function() {
 		if ($scope.form.groupToDelete) {
 			$scope.form.availableGroups.push($scope.form.groupToDelete);
@@ -138,12 +138,12 @@ var EditUserDialogController = function ($scope, $modalInstance, $rootScope, $ti
 			if ($scope.form.userGroups.length > 0) {
 				var selectedIndex = Math.max(0, removeIndex - 1);
 				$scope.form.groupToDelete = $scope.form.userGroups[selectedIndex];
-				$scope.$userGroupsSelected.val($scope.form.groupToDelete.id)
+				$scope.$userGroupsSelected.val($scope.form.groupToDelete.id);
 			} else {
 				$scope.form.groupToDelete = null;
 			}
 		}
-	}
+	};
 
 	$scope.ok_clickHandler = function () {
 		if (!$scope.form.name) { // Make sure the fields are not empty.
@@ -156,12 +156,12 @@ var EditUserDialogController = function ($scope, $modalInstance, $rootScope, $ti
 			var productIds = [];
 			_.each($scope.form.userFolios, function(element) {
 				productIds.push(element.productId);
-			})
+			});
 
 			var groupIds = [];
 			_.each($scope.form.userGroups, function(element) {
 				groupIds.push(element.id);
-			})
+			});
 
 			entitlementService.updateUser(user.guid, user.id, $scope.form.name, $scope.form.password1, $scope.form.description, productIds, groupIds).then(
 				function(data) {
@@ -205,16 +205,16 @@ var EditUserDialogController = function ($scope, $modalInstance, $rootScope, $ti
 					// If the folio was deleted or made private then there won't be one.
 					if (folio) {
 						userFolios.push(folio); // Get the folio object for the productId.
-						optionTags += "<option value='" + productId + "'>" + folio.label + "</option>"
+						optionTags += "<option value='" + productId + "'>" + folio.label + "</option>";
 
 						// Store the folios associated with the user in a hash for look up.
 						$scope.foliosForUserHash[folio.productId] = folio.productId;
 					}
-				})
+				});
 				$scope.form.userFolios = userFolios;
 
 				$scope.$userFoliosSelected.append(optionTags);
-				
+
 				// Make a copy of folios since it will change based on what the user already has assigned.
 				var availableFolios = folios.slice(0);
 
@@ -251,8 +251,8 @@ var EditUserDialogController = function ($scope, $modalInstance, $rootScope, $ti
 					var id = element;
 					var group = _.find(groups, {id: id});
 					userGroups.push(group); // Get the group object for the productId.
-					optionTags += "<option value='" + id + "'>" + group.name + "</option>"
-				})
+					optionTags += "<option value='" + id + "'>" + group.name + "</option>";
+				});
 				$scope.form.userGroups = userGroups;
 
 				$scope.$userGroupsSelected.append(optionTags);

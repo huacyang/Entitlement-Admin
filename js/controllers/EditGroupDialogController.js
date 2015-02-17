@@ -26,7 +26,7 @@ var EditGroupDialogController = function ($scope, $modalInstance, $rootScope, $t
 			if (id)
 				$scope.form.userToDelete = _.find($scope.form.groupUsers, {id: id});
 		});
-	}
+	};
 
 	// Handler for when a list of folios is downloaded. Server is polled.
 	var removeGetFoliosHandler = $rootScope.$on("getFolios", function(e, folios) {
@@ -61,7 +61,7 @@ var EditGroupDialogController = function ($scope, $modalInstance, $rootScope, $t
 			}
 		}
 	});
-	
+
 	// Remove the handler when the scope is destroyed.
 	$scope.$on("$destroy", function() {
 		removeGetFoliosHandler();
@@ -81,7 +81,7 @@ var EditGroupDialogController = function ($scope, $modalInstance, $rootScope, $t
 
 		// Set the default to the first one.
 		$scope.form.folioToAdd = $scope.form.availableFolios[0];
-	}
+	};
 
 	$scope.addUser_clickHandler = function() {
 		var user = $scope.form.userToAdd;
@@ -97,8 +97,8 @@ var EditGroupDialogController = function ($scope, $modalInstance, $rootScope, $t
 
 		// Set the default to the first one.
 		$scope.form.userToAdd = $scope.form.availableUsers[0];
-	}
-	
+	};
+
 	$scope.removeFolio_clickHandler = function(isUserRemoved) {
 		if ($scope.form.folioToDelete) {
 			// Add the folio back to the list of available folios.
@@ -116,14 +116,14 @@ var EditGroupDialogController = function ($scope, $modalInstance, $rootScope, $t
 				if ($scope.form.groupFolios.length > 0) {
 					var selectedIndex = Math.max(0, removeIndex - 1);
 					$scope.form.folioToDelete = $scope.form.groupFolios[selectedIndex];
-					$scope.$groupFoliosSelected.val($scope.form.folioToDelete.productId)
+					$scope.$groupFoliosSelected.val($scope.form.folioToDelete.productId);
 				} else {
 					$scope.form.folioToDelete = null;
 				}
 			}
 		}
-	}
-	
+	};
+
 	$scope.removeUser_clickHandler = function() {
 		var user = $scope.form.userToDelete;
 		if (user) {
@@ -139,12 +139,12 @@ var EditGroupDialogController = function ($scope, $modalInstance, $rootScope, $t
 			if ($scope.form.groupUsers.length > 0) {
 				var selectedIndex = Math.max(0, removeIndex - 1);
 				$scope.form.userToDelete = $scope.form.groupUsers[selectedIndex];
-				$scope.$groupUsersSelected.val($scope.form.userToDelete.id)
+				$scope.$groupUsersSelected.val($scope.form.userToDelete.id);
 			} else {
 				$scope.form.userToDelete = null;
 			}
 		}
-	}
+	};
 
 	$scope.ok_clickHandler = function () {
 		if (!$scope.form.name) { // Make sure the fields are not empty.
@@ -155,12 +155,12 @@ var EditGroupDialogController = function ($scope, $modalInstance, $rootScope, $t
 			var productIds = [];
 			_.each($scope.form.groupFolios, function(element) {
 				productIds.push(element.productId);
-			})
+			});
 
 			var userIds = [];
 			_.each($scope.form.groupUsers, function(element) {
 				userIds.push(element.id);
-			})
+			});
 
 			entitlementService.updateGroup(group.guid, group.id, $scope.form.name, $scope.form.description, productIds, userIds).then(
 				function(data) {
@@ -207,7 +207,7 @@ var EditGroupDialogController = function ($scope, $modalInstance, $rootScope, $t
 						// Store the folios associated with the group in a hash for look up.
 						$scope.foliosForGroupHash[folio.productId] = folio.productId;
 					}
-				})
+				});
 				$scope.form.groupFolios = groupFolios;
 
 				$scope.$groupFoliosSelected.append(optionTags);
@@ -247,8 +247,8 @@ var EditGroupDialogController = function ($scope, $modalInstance, $rootScope, $t
 					var id = element;
 					var user = _.find(users, {id: id}); // Get the group object for the id.
 					groupUsers.push(user);
-					optionTags += "<option value='" + id + "'>" + user.name + "</option>"
-				})
+					optionTags += "<option value='" + id + "'>" + user.name + "</option>";
+				});
 				$scope.form.groupUsers = groupUsers;
 
 				$scope.$groupUsersSelected.append(optionTags);

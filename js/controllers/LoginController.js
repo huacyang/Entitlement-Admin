@@ -27,5 +27,5 @@ app.controller("LoginController", function($scope, loginService) {
 		} else {
 			$scope.loginForm.submitted = true;
 		}
-	}
+	};
 });

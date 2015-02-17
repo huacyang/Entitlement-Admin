@@ -29,7 +29,7 @@ var EditFolioDialogController = function ($scope, $modalInstance, entitlementSer
 				$scope.form.userToDelete = _.find($scope.form.folioUsers, {id: Number(id)});
 			}
 		});
-	}
+	};
 
 	$scope.addGroup_clickHandler = function() {
 		// Add the group to folioGroups.
@@ -43,7 +43,7 @@ var EditFolioDialogController = function ($scope, $modalInstance, entitlementSer
 
 		// Set the default to the first one.
 		$scope.form.groupToAdd = $scope.form.availableGroups[0];
-	}
+	};
 
 	$scope.addUser_clickHandler = function() {
 		var user = $scope.form.userToAdd;
@@ -58,8 +58,8 @@ var EditFolioDialogController = function ($scope, $modalInstance, entitlementSer
 
 		// Set the default to the first one.
 		$scope.form.userToAdd = $scope.form.availableUsers[0];
-	}
-	
+	};
+
 	$scope.removeFolio_clickHandler = function() {
 		if ($scope.form.groupToDelete) {
 			$scope.form.availableGroups.push($scope.form.groupToDelete);
@@ -81,8 +81,8 @@ var EditFolioDialogController = function ($scope, $modalInstance, entitlementSer
 				$scope.form.groupToDelete = null;
 			}
 		}
-	}
-	
+	};
+
 	$scope.removeUser_clickHandler = function() {
 		var user = $scope.form.userToDelete;
 		if (user) {
@@ -105,7 +105,7 @@ var EditFolioDialogController = function ($scope, $modalInstance, entitlementSer
 				$scope.form.userToDelete = null;
 			}
 		}
-	}
+	};
 
 	$scope.ok_clickHandler = function () {
 		$scope.form.isUploadingFolioEdit = true;
@@ -114,12 +114,12 @@ var EditFolioDialogController = function ($scope, $modalInstance, entitlementSer
 		var groupIds = [];
 		_.each($scope.form.folioGroups, function(element) {
 			groupIds.push(element.id);
-		})
+		});
 
 		var userIds = [];
 		_.each($scope.form.folioUsers, function(element) {
 			userIds.push(element.id);
-		})
+		});
 
 		entitlementService.updateFolio(folio.productId, guid, groupIds, userIds).then(
 			function(data) {
@@ -153,13 +153,13 @@ var EditFolioDialogController = function ($scope, $modalInstance, entitlementSer
 				var optionTags = "";
 				_.each(data.groups, function(element) { // Loop through the returned groups.
 					var group = _.find(groups, {id: element}); // Get the group object for the group id.
-					folioGroups.push(group); 
-					optionTags += "<option value='" + group.id + "'>" + group.name + "</option>"
+					folioGroups.push(group);
+					optionTags += "<option value='" + group.id + "'>" + group.name + "</option>";
 				});
 
 				folioGroups.sort(function(a, b) {
 					return a.name > b.name;
-				})
+				});
 
 				$scope.form.folioGroups = folioGroups;
 
@@ -204,13 +204,13 @@ var EditFolioDialogController = function ($scope, $modalInstance, entitlementSer
 				var optionTags = "";
 				_.each(data.users, function(element) { // Loop through the returned users.
 					var user = _.find(users, {id: element}); // Get the group object for the group id.
-					folioUsers.push(user); 
-					optionTags += "<option value='" + user.id + "'>" + user.name + "</option>"
+					folioUsers.push(user);
+					optionTags += "<option value='" + user.id + "'>" + user.name + "</option>";
 				});
 
 				folioUsers.sort(function(a, b) {
 					return a.name > b.name;
-				})
+				});
 
 				$scope.form.folioUsers = folioUsers;
 
