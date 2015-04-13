@@ -18,7 +18,7 @@ $db_user = "root";
  * @example $db_password = "root";
  * Please uncomment below and input actual value.
  */
-$db_password = "";
+$db_password = "root";
 
 /**
  * @param {String} $db_name - The mysql database name.
